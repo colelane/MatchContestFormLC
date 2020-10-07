@@ -122,5 +122,8 @@
   <ItemGroup>
     <None Include="Resources\BigRedArrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Allstar1.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

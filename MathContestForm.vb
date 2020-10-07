@@ -1,7 +1,10 @@
-﻿Public Class MathContestForm
+﻿Option Strict On
+Option Explicit On
+Option Compare Text
+Public Class MathContestForm
 
-    Dim yourMom() As String
-    Dim bruh As Integer
+    Dim infoArr() As String
+    Dim arraySizer As Integer
     Dim correct As String
     Dim opStr As String
 
@@ -14,7 +17,7 @@
 
     Public Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
         Dim goodData As Boolean
-        ReDim Preserve yourMom(0 To bruh)
+        ReDim Preserve infoArr(0 To arraySizer)
         goodData = EvaluateTextboxes()
         If goodData = False Then
             Exit Sub
@@ -24,10 +27,11 @@
 
     End Sub
 
-    Function EvaluateTextboxes()
+    Function EvaluateTextboxes() As Boolean
         Dim eval As Boolean
-        Dim age As Integer
-        Dim grade As Integer
+        Dim ageCheck As Integer
+        Dim gradeCheck As Integer
+        Dim answerCheck As Integer
         ArrowBox1.Visible = False
         ArrowBox2.Visible = False
         ArrowBox3.Visible = False
@@ -44,7 +48,10 @@
             ArrowBox1.BringToFront()
             MsgBox("Sir. Enter a name.")
             Exit Function
-        ElseIf NameTextBox.Text > Nothing Then
+        ElseIf NameTextBox.Text = "Shrek" Then
+            My.Computer.Audio.Play(My.Resources.Allstar1, AudioPlayMode.Background)
+            ArrowBox1.Visible = False
+        ElseIf NameTextBox.Text > Nothing And NameTextBox.Text <> "shrek" Then
             ArrowBox1.Visible = False
         End If
 
@@ -57,7 +64,7 @@
             Exit Function
         ElseIf AgeTextBox.Text > Nothing Then
             Try
-                age = CInt(AgeTextBox.Text)
+                ageCheck = CInt(AgeTextBox.Text)
             Catch ex As Exception
                 ArrowBox2.Image = My.Resources.BigRedArrow
                 ArrowBox2.Visible = True
@@ -85,17 +92,17 @@
             Exit Function
         ElseIf GradeTextBox.Text > Nothing Then
             Try
-                grade = CInt(GradeTextBox.Text)
+                gradeCheck = CInt(GradeTextBox.Text)
             Catch ex As Exception
                 ArrowBox3.Image = My.Resources.BigRedArrow
                 ArrowBox3.Visible = True
                 ArrowBox3.BringToFront()
-                MsgBox("Grade must be a number")
+                MsgBox("Grade must be a whole number between 1 and 4")
                 ActiveControl = GradeTextBox
                 Exit Function
             End Try
             If CInt(GradeTextBox.Text) > 4 Or CInt(GradeTextBox.Text) < 1 Then
-                MsgBox("Grade must be between 1 and 4")
+                MsgBox("Grade must be a whole number between 1 and 4")
                 ArrowBox3.Image = My.Resources.BigRedArrow
                 ArrowBox3.Visible = True
                 ArrowBox3.BringToFront()
@@ -134,6 +141,16 @@
             MsgBox("Sir. Enter an answer.")
             Exit Function
         ElseIf SATextBox.Text > Nothing Then
+            Try
+                answerCheck = CInt(SATextBox.Text)
+            Catch ex As Exception
+                ActiveControl = SATextBox
+                ArrowBox4.Image = My.Resources.BigRedArrow
+                ArrowBox4.Visible = True
+                ArrowBox4.BringToFront()
+                MsgBox("Sir. Answer must be a whole number.")
+                Exit Function
+            End Try
             ArrowBox4.Visible = False
         End If
         eval = True
@@ -156,7 +173,7 @@
             answer = 1
             opStr = "/"
         End If
-        useresponse = SATextBox.Text
+        useresponse = CInt(SATextBox.Text)
         If useresponse = answer Then
             MsgBox("That's the right answer! Good work!")
             correct = "Correct"
@@ -170,14 +187,8 @@
 
     Public Sub SaveInfo()
 
-
-
-
-        yourMom(bruh) = $"Name: {NameTextBox.Text}, Age: {AgeTextBox.Text}, Grade: {GradeTextBox.Text}, Operation: {FNTextBox.Text}{opStr}{SNTextBox.Text}, Answer: {SATextBox.Text}, Correct?: {correct}{vbNewLine}"
-        bruh += 1
-
-
-
+        infoArr(arraySizer) = $"Name: {NameTextBox.Text}, Age: {AgeTextBox.Text}, Grade: {GradeTextBox.Text}, Operation: {FNTextBox.Text}{opStr}{SNTextBox.Text}, Answer: {SATextBox.Text}, Correct?: {correct}{vbNewLine}"
+        arraySizer += 1
 
     End Sub
     Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
@@ -194,7 +205,7 @@
     Public Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
 
         FileOpen(1, FileSystem.CurDir() & "\info.txt", OpenMode.Output)
-        WriteLine(1, yourMom)
+        WriteLine(1, infoArr)
         FileClose(1)
         Process.Start(FileSystem.CurDir() & "\info.txt")
     End Sub
