@@ -1,16 +1,26 @@
 ﻿Public Class MathContestForm
+
+    Dim yourMom() As String
+    Dim bruh As Integer
+    Dim correct As String
+    Dim opStr As String
+
+    Private Sub MathContestForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    End Sub
+
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
     End Sub
 
-    Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
+    Public Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
         Dim goodData As Boolean
-
+        ReDim Preserve yourMom(0 To bruh)
         goodData = EvaluateTextboxes()
         If goodData = False Then
             Exit Sub
         End If
         EvaluateAnswer()
+        SaveInfo()
 
     End Sub
 
@@ -135,19 +145,58 @@
         Dim useresponse As Integer
         If AddRadioButton.Checked = True Then
             answer = 20
+            opStr = "+"
         ElseIf SubtractRadioButton.Checked = True Then
             answer = 0
+            opStr = "-"
         ElseIf MultiplyRadioButton.Checked = True Then
             answer = 100
+            opStr = "*"
         ElseIf DivideRadioButton.Checked = True Then
             answer = 1
+            opStr = "/"
         End If
         useresponse = SATextBox.Text
         If useresponse = answer Then
             MsgBox("That's the right answer! Good work!")
-            Else
+            correct = "Correct"
+        Else
             MsgBox("That is the wrong answer.")
+            correct = "Wrong"
         End If
 
     End Sub
+
+
+    Public Sub SaveInfo()
+
+
+
+
+        yourMom(bruh) = $"Name: {NameTextBox.Text}, Age: {AgeTextBox.Text}, Grade: {GradeTextBox.Text}, Operation: {FNTextBox.Text}{opStr}{SNTextBox.Text}, Answer: {SATextBox.Text}, Correct?: {correct}{vbNewLine}"
+        bruh += 1
+
+
+
+
+    End Sub
+    Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
+        NameTextBox.Clear()
+        AgeTextBox.Clear()
+        GradeTextBox.Clear()
+        SATextBox.Clear()
+        AddRadioButton.Checked = False
+        SubtractRadioButton.Checked = False
+        MultiplyRadioButton.Checked = False
+        DivideRadioButton.Checked = False
+    End Sub
+
+    Public Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
+
+        FileOpen(1, FileSystem.CurDir() & "\info.txt", OpenMode.Output)
+        WriteLine(1, yourMom)
+        FileClose(1)
+        Process.Start(FileSystem.CurDir() & "\info.txt")
+    End Sub
+
 End Class
