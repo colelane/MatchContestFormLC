@@ -46,11 +46,16 @@ Public Class MathContestForm
             ArrowBox1.Image = My.Resources.BigRedArrow
             ArrowBox1.Visible = True
             ArrowBox1.BringToFront()
+            ArrowBox1.SizeMode = PictureBoxSizeMode.Normal
             MsgBox("Sir. Enter a name.")
             Exit Function
         ElseIf NameTextBox.Text = "Shrek" Then
             My.Computer.Audio.Play(My.Resources.Allstar1, AudioPlayMode.Background)
-            ArrowBox1.Visible = False
+            ArrowBox1.Image = My.Resources.shrekmouth
+            ArrowBox1.SizeMode = PictureBoxSizeMode.CenterImage
+            ArrowBox1.Visible = True
+            ArrowBox1.BringToFront()
+            Exit Function
         ElseIf NameTextBox.Text > Nothing And NameTextBox.Text <> "shrek" Then
             ArrowBox1.Visible = False
         End If
