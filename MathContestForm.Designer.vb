@@ -90,6 +90,7 @@ Partial Class MathContestForm
         '
         'ExitButton
         '
+        Me.ExitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ExitButton.Location = New System.Drawing.Point(1033, 437)
         Me.ExitButton.Name = "ExitButton"
         Me.ExitButton.Size = New System.Drawing.Size(205, 102)

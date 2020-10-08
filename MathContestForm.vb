@@ -113,7 +113,8 @@ Public Class MathContestForm
             ArrowBox3.Visible = False
         End If
 
-        If AddRadioButton.Checked = False And SubtractRadioButton.Checked = False And MultiplyRadioButton.Checked = False And DivideRadioButton.Checked = False Then
+        If AddRadioButton.Checked = False And SubtractRadioButton.Checked = False _
+            And MultiplyRadioButton.Checked = False And DivideRadioButton.Checked = False Then
             ArrowBox5.Image = My.Resources.BigRedArrow
             ArrowBox5.Visible = True
             ArrowBox5.BringToFront()
@@ -128,7 +129,8 @@ Public Class MathContestForm
             ArrowBox8.BringToFront()
             MsgBox("Sir. Check one of the bubbles.")
             Exit Function
-        ElseIf AddRadioButton.Checked = True Or SubtractRadioButton.Checked = True Or MultiplyRadioButton.Checked = True Or DivideRadioButton.Checked = True Then
+        ElseIf AddRadioButton.Checked = True Or SubtractRadioButton.Checked = True _
+            Or MultiplyRadioButton.Checked = True Or DivideRadioButton.Checked = True Then
             ArrowBox5.Visible = False
             ArrowBox6.Visible = False
             ArrowBox7.Visible = False
@@ -214,4 +216,47 @@ Public Class MathContestForm
         Process.Start(FileSystem.CurDir() & "\info.txt")
     End Sub
 
+    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
+        ArrowBox1.Visible = False
+    End Sub
+
+    Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.TextChanged
+        ArrowBox2.Visible = False
+    End Sub
+
+    Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.TextChanged
+        ArrowBox3.Visible = False
+    End Sub
+
+    Private Sub AddRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AddRadioButton.CheckedChanged
+        ArrowBox5.Visible = False
+        ArrowBox6.Visible = False
+        ArrowBox7.Visible = False
+        ArrowBox8.Visible = False
+    End Sub
+
+    Private Sub SubtractRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SubtractRadioButton.CheckedChanged
+        ArrowBox5.Visible = False
+        ArrowBox6.Visible = False
+        ArrowBox7.Visible = False
+        ArrowBox8.Visible = False
+    End Sub
+
+    Private Sub MultiplyRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles MultiplyRadioButton.CheckedChanged
+        ArrowBox5.Visible = False
+        ArrowBox6.Visible = False
+        ArrowBox7.Visible = False
+        ArrowBox8.Visible = False
+    End Sub
+
+    Private Sub DivideRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DivideRadioButton.CheckedChanged
+        ArrowBox5.Visible = False
+        ArrowBox6.Visible = False
+        ArrowBox7.Visible = False
+        ArrowBox8.Visible = False
+    End Sub
+
+    Private Sub SATextBox_TextChanged(sender As Object, e As EventArgs) Handles SATextBox.TextChanged
+        ArrowBox4.Visible = False
+    End Sub
 End Class
