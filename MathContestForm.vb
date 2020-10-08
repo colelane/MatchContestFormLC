@@ -1,6 +1,11 @@
 ﻿Option Strict On
 Option Explicit On
 Option Compare Text
+'Lane Coleman
+'RCET 0265
+'Fall 2020
+'Math Contest Form
+'https://github.com/colelane/MatchContestFormLC.git
 Public Class MathContestForm
     'these needed to be global, so all subs could see them.
     Dim infoArr() As String
