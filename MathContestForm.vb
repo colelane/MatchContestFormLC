@@ -2,15 +2,11 @@
 Option Explicit On
 Option Compare Text
 Public Class MathContestForm
-
+    'these needed to be global, so all subs could see them.
     Dim infoArr() As String
     Dim arraySizer As Integer
     Dim correct As String
     Dim opStr As String
-
-    Private Sub MathContestForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    End Sub
-
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
     End Sub
@@ -28,6 +24,7 @@ Public Class MathContestForm
     End Sub
 
     Function EvaluateTextboxes() As Boolean
+        'This function evaluates the textboxes and makes sure they are filled out correctly before moving on.
         Dim eval As Boolean
         Dim ageCheck As Integer
         Dim gradeCheck As Integer
@@ -163,6 +160,7 @@ Public Class MathContestForm
     End Function
 
     Sub EvaluateAnswer()
+        'this sub evaluates the student answer after a successful evaluation of the text boxes
         Dim answer As Integer
         Dim useresponse As Integer
         If AddRadioButton.Checked = True Then
@@ -191,12 +189,13 @@ Public Class MathContestForm
 
 
     Public Sub SaveInfo()
-
+        'this sub writes the textbox information to an array for later use
         infoArr(arraySizer) = $"Name: {NameTextBox.Text}, Age: {AgeTextBox.Text}, Grade: {GradeTextBox.Text}, Operation: {FNTextBox.Text}{opStr}{SNTextBox.Text}, Answer: {SATextBox.Text}, Correct?: {correct}{vbNewLine}"
         arraySizer += 1
 
     End Sub
     Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
+        'This sub clears the next boxes and radio buttons
         NameTextBox.Clear()
         AgeTextBox.Clear()
         GradeTextBox.Clear()
@@ -208,7 +207,7 @@ Public Class MathContestForm
     End Sub
 
     Public Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
-
+        'This sub writes the information in the info array to a text file, then opens the file for viewing.
         FileOpen(1, FileSystem.CurDir() & "\info.txt", OpenMode.Output)
         WriteLine(1, infoArr)
         FileClose(1)
