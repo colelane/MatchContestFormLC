@@ -170,7 +170,7 @@ Public Class MathContestForm
         'this sub evaluates the student answer after a successful evaluation of the text boxes
         Dim answer As Integer
         Dim useresponse As Integer
-        If AddRadioButton.Checked = True Then
+        If AddRadioButton.Checked = True Then ' Allow user to enter numbers or generate random - TJR
             answer = 20
             opStr = "+"
         ElseIf SubtractRadioButton.Checked = True Then
@@ -263,5 +263,9 @@ Public Class MathContestForm
 
     Private Sub SATextBox_TextChanged(sender As Object, e As EventArgs) Handles SATextBox.TextChanged
         ArrowBox4.Visible = False
+    End Sub
+
+    Private Sub MathContestForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'remove empty stub - TJR
     End Sub
 End Class
